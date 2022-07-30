@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Skyblock.Bingo lets you view your Hypixel Skyblock bingo stats, leaderboard, and guide for this month's goals!">
+    <meta name="keywords" content="bingo, hypixel, skyblock, hypixel skyblock">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://skyblock.bingo/MinecraftColorCodes.min.3.7.js"></script>
+    <title>Guide | skyblock.bingo</title>
+</head>
+<style>
+    body {
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        margin: 0px;
+        background-color: #070F15;
+        color: #bebebe;
+    }
+    #header {
+        background-color: #000000;
+        display: flex;
+        text-align: left;
+        padding: 5px;
+        position: sticky;
+        top: 0px;
+        height: 24px;
+    }
+    #header a {
+        outline: none;
+        border-radius: 32px;
+        border: none;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: 8px;
+        line-height: 18px;
+        background-color: #383838;
+        text-decoration: none;
+        color: #ffffff;
+    }
+    #header a:hover {
+        background-color: #bebebe;
+        color: #070F15;
+    }
+    #card {
+        position: fixed;
+        display: flex;
+        width: 400px;
+        height: 400px;
+        margin-top: 16px;
+        margin-left: 16px;
+        border-radius: 5px;
+        flex-direction: column;
+        background-color: #000000;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+    .goal {
+        width: 79px;
+        height: 79px;
+        border-right: 1px solid #383838;
+        border-bottom: 1px solid #383838;
+    }
+    .goal button {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        font-size: 12px;
+    }
+    .goal button:active {
+        background-color: #00000050;
+    }
+    .container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        overflow-y: hidden;
+    }
+    #player-container {
+        margin-top: 16px;
+        margin-left: calc(400px + 32px);
+        margin-right: 16px;
+        width: 100%;
+        background-color: #383838;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 16px;
+    }
+
+    #attribution {
+        float: left; 
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        text-align: center;
+        background-color: #000000;
+        color: white;
+        padding: 5px;
+        height: 24px;
+    }
+
+    td {
+        border-bottom: 1px solid #494949;
+        text-align: center;
+        padding: 8px;
+        width: calc(100% / 8);
+        overflow-y: auto;
+        height: 50px;
+    }
+
+    td a {
+        text-decoration: underline; 
+        color: #1e78e0;
+    }
+
+    td:first-child {
+        width: calc(100% / 9);
+    }
+
+    tr:last-child td:first-child {
+        border-radius: 0px 0px 0px 5px;
+    }
+
+    tr:last-child td:last-child {
+        border-radius: 0px 0px 5px 0px;
+    }
+
+    tr:last-child td{
+        border-bottom:0;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .container {
+            flex-direction: column;
+        }
+        #card {
+            position: static;
+            width: calc(100% - 32px);
+            height: calc(100vw - 32px);
+            margin-bottom: 16px;
+        }
+        .goal {
+            width: -webkit-calc(100% / 5);
+            height: calc((100vw - 32px) / 5);
+        }
+        .goal button {
+            font-size: 8px;
+        }
+        #player-container {
+            width: calc(100% - 32px);
+            margin-top: 8px;
+            margin-bottom: 16px;
+            margin-left: 16px;
+            font-size: 10px;
+        }
+        #goals {
+            margin-top: 5px;
+            width: calc(100% - 64px);
+        }
+        #blackout-string {
+            width: 100%;
+            padding-top: calc(50% - 18px);
+        }
+        #footer {
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 16px;
+        }
+        #disclaimer {
+            margin-left: 0px;
+            text-align: center;
+        }
+        #attribution {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <div id="header">
+        <a style="margin-left: 0px; background-color: #000000; color: white; font-weight: 600;" href="https://skyblock.bingo">skyblock.bingo</a>
+        <a href="https://skyblock.bingo/guide" target="_blank">Guide</a>
+        <a href="https://skyblock.bingo/leaderboard" target="_blank">Leaderboard</a>
+        <a href="https://skyblock.bingo/api" target="_blank">API</a>
+    </div>
+    <div class="container">
+        <div id="card">
+            <div class="row">
+                <div id="goal0" class="goal" style="border-radius: 5px 0px 0px 0px;">
+                    <button class="card-btn" aria-label="Display Goal One" onclick="displayGoal(0)" style="border-radius: 5px 0px 0px 0px;"></button>
+                </div>
+                <div id="goal1" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Two" onclick="displayGoal(1)"></button>
+                </div>
+                <div id="goal2" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Three" onclick="displayGoal(2)"></button>
+                </div>
+                <div id="goal3" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Four" onclick="displayGoal(3)"></button>
+                </div>
+                <div id="goal4" class="goal" style="border-radius: 0px 5px 0px 0px; border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Five" onclick="displayGoal(4)" style="border-radius: 0px 5px 0px 0px;"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal5" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Six" onclick="displayGoal(5)"></button>
+                </div>
+                <div id="goal6" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Seven" onclick="displayGoal(6)"></button>
+                </div>
+                <div id="goal7" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Eight" onclick="displayGoal(7)"></button>
+                </div>
+                <div id="goal8" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Nine" onclick="displayGoal(8)"></button>
+                </div>
+                <div id="goal9" class="goal" style="border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Ten" onclick="displayGoal(9)"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal10" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Eleven" onclick="displayGoal(10)"></button>
+                </div>
+                <div id="goal11" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Twelve" onclick="displayGoal(11)"></button>
+                </div>
+                <div id="goal12" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Thirteen" onclick="displayGoal(12)"></button>
+                </div>
+                <div id="goal13" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Fourteen" onclick="displayGoal(13)"></button>
+                </div>
+                <div id="goal14" class="goal" style="border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Fifteen" onclick="displayGoal(14)"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal15" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Sixteen" onclick="displayGoal(15)"></button>
+                </div>
+                <div id="goal16" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Seventeen" onclick="displayGoal(16)"></button>
+                </div>
+                <div id="goal17" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Eighteen" onclick="displayGoal(17)"></button>
+                </div>
+                <div id="goal18" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Ninteen" onclick="displayGoal(18)"></button>
+                </div>
+                <div id="goal19" class="goal" style="border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twenty" onclick="displayGoal(19)"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal20" class="goal" style="border-radius: 0px 0px 0px 5px; border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentyone" onclick="displayGoal(20)" style="border-radius: 0px 0px 0px 5px;"></button>
+                </div>
+                <div id="goal21" class="goal" style="border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentytwo" onclick="displayGoal(21)"></button>
+                </div>
+                <div id="goal22" class="goal" style="border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentythree" onclick="displayGoal(22)"></button>
+                </div>
+                <div id="goal23" class="goal" style="border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentyfour" onclick="displayGoal(23)"></button>
+                </div>
+                <div id="goal24" class="goal" style="border-radius: 0px 0px 5px 0px; border-right: 0px; border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentyfive" onclick="displayGoal(24)" style="border-radius: 0px 0px 5px 0px;"></button>
+                </div>
+            </div>
+            <p id="footer">
+                <span id="attribution">
+                    Click on a goal to jump to it ⟶
+                    <br><br>
+                    Made by <a style="text-decoration: none; color: #1e78e0;" href="https://github.com/awesomepandapig/skyblock.bingo" target="_blank">awesomepandapig</a>
+                    <br>
+                    Edited by <a style="text-decoration: none; color: #1e78e0;" href="https://hypixel.net/members/ialchemisti.4363923/" target="_blank">IAlcheMistI</a>, <a style="text-decoration: none; color: #1e78e0;" href="https://hypixel.net/members/3768762/" target="_blank">Dredlig</a>, <a style="text-decoration: none; color: #1e78e0;" href="https://hypixel.net/members/hunterthehunter.1079233/" target="_blank">HunterTheHunter</a>, <a style="text-decoration: none; color: #1e78e0;" href="https://hypixel.net/members/zeroing.3728040/" target="_blank">Zeroing</a>, and <a style="text-decoration: none; color: #1e78e0;" href="https://hypixel.net/members/indigopolecat.3270837/" target="_blank">IndigoPolecat</a>
+                    <br>
+                    Data provided by <a style="text-decoration: none; color: #1e78e0;" href="https://discord.com/channels/916072546976301117/958240015945703475" target="_blank">Bingo Brewers</a>
+                    <br><br>
+                    Wish to contribute? <a style="text-decoration: none; color: #1e78e0;" href="https://discord.com/channels/916072546976301117/958240015945703475" target="_blank">Click Here</a>
+                </span>
+            </p>
+        </div>
+
+        <div id="player-container">
+            <table id="instructions">
+                <tr>
+                  <th style="border-radius: 5px 0px 0px 0px;">Name</th>
+                  <th>Lore</th>
+                  <th>Method</th>
+                  <th style="border-radius: 0px 5px 0px 0px;">Notes</th>
+                </tr>
+              </table>
+        </div>
+    </div>
+</body>
+<script>
+    window.onload = function() {
+        fetch(`https://skyblock.bingo/guide.json`)
+        .then(response => response.json())
+        .then(data => {
+            let guide = data;
+            for(i = 0; i < guide.length; i++) {
+                document.getElementsByClassName('card-btn')[i].innerHTML = guide[i].name;
+                if ((i == 1) || (i == 3) || (i == 14) || (i == 22)) {
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#2EB67D';
+                }
+                if ((i == 5) || (i == 8) || (i == 11) || (i == 15) || (i == 17) || (i == 19)) {
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#1ee0c0';
+                }
+                if ((i == 7) || (i == 9) || (i == 13) || (i == 20) || (i == 21)) {
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#1e78e0';
+                }
+                if ((i == 2) || (i == 10) || (i == 16)) {
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#d01ee0';
+                }
+                if ((i == 4) || (i == 23)) {
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#E01E5A';
+                }
+                if ((i == 0) || (i == 6) || (i == 12) || (i == 18) || (i == 24)) {
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#ECB22E';
+                }
+
+                tr = document.getElementById('instructions').insertRow();
+                tr.id = i;
+                goalName = tr.insertCell();
+                goalName.innerHTML = guide[i].name;
+                lore = tr.insertCell();
+                lore.append(guide[i].lore.substring(0, guide[i].lore.length-1).replaceColorCodes());
+                method = tr.insertCell(2);
+                method.innerHTML = guide[i].method;
+                notes = tr.insertCell();
+                notes.innerHTML = guide[i].notes;
+            }
+        })
+    }
+
+    function displayGoal(num) {
+        for(i = 1; i < document.getElementById('instructions').getElementsByTagName('tr').length; i++) {
+            document.getElementsByTagName('tr')[i].style.backgroundColor = '#383838';
+            document.getElementsByTagName('tr')[i].style.color = '#bebebe';
+        }
+        document.getElementsByTagName('tr')[num+1].style.backgroundColor = '#424242';
+        document.getElementsByTagName('tr')[num].scrollIntoView({behavior: 'smooth', block: 'center'});
+    }
+        
+</script>
+</html>

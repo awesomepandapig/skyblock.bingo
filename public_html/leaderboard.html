@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View the top 100 bingo players">
+    <meta name="keywords" content="bingo, hypixel, skyblock, hypixel skyblock">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <title>Leaderboard | skyblock.bingo</title>
+</head>
+<style>
+body {
+  font-family: 'Atkinson Hyperlegible', sans-serif;
+  margin: 0px;
+  overflow-x: hidden;
+  color: #bebebe;
+  background-color: #070F15;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: center;
+  background-color: #000000;
+  color: white;
+  padding: 5px;
+  height: 24px;
+  position: sticky;
+  top: 0;
+}
+
+td {
+  border-bottom: 1px solid #494949;
+  text-align: center;
+  padding: 8px;
+  width: calc(100% / 3);
+}
+
+td img {
+  margin-left: 8px;
+  height: 30px;
+  vertical-align: middle;
+  border-radius: 3px;
+}
+</style>
+<body>
+    <table id="output">
+        <tr>
+            <th>Ranking</th>
+            <th>Player</th>
+            <th>Points</th>
+        </tr>
+    </table>
+</body>
+<script>
+    window.onload = function() {
+    output = document.getElementById('output');
+    fetch(`https://skyblock.bingo/api/leaderboard`)
+    .then(response => response.json())
+    .then(data => {
+        for(i = 0; i < data.leaderboard.length; i++) {
+            tr = output.insertRow();
+
+            var ranking = tr.insertCell();
+            ranking.innerHTML = i+1;
+            
+            var head = document.createElement('img');
+            head.src = `https://mc-heads.net/avatar/${data.leaderboard[i].uuid}`;
+
+            var player = tr.insertCell();
+            var username = document.createElement('span');
+            username.innerHTML = data.leaderboard[i].name;
+            if (data.leaderboard[i].hypixel_rank == 'ADMIN' || data.leaderboard[i].hypixel_rank == 'YOUTUBER') {
+              username.style.color = '#FF5555';
+            } else if (data.leaderboard[i].hypixel_rank == 'MODERATOR') {
+              username.style.color = '#00AA00';
+            } else if (data.leaderboard[i].hypixel_rank == 'HELPER') {
+              username.style.color = '#0000AA';
+            } else if (data.leaderboard[i].hypixel_rank == 'SUPERSTAR') {
+              username.style.color = '#FFAA00';
+            } else if (data.leaderboard[i].hypixel_rank == 'MVP_PLUS') {
+              username.style.color = '#55FFFF';
+            } else if (data.leaderboard[i].hypixel_rank == 'MVP') {
+              username.style.color = '#55FFFF';
+            } else if (data.leaderboard[i].hypixel_rank == 'VIP_PLUS') {
+              username.style.color = '#55FF55';
+            } else if (data.leaderboard[i].hypixel_rank == 'VIP') {
+              username.style.color = '#55FF55';
+            }
+            player.appendChild(username);
+            player.appendChild(head);
+
+            var points = tr.insertCell();
+            points.innerHTML = data.leaderboard[i].points;
+
+            tr.appendChild(points, player, ranking);
+        }
+    })
+    document.body.appendChild(output);
+}
+</script>
+</html>

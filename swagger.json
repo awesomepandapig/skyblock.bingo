@@ -1,0 +1,73 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This API provides Hypixel Skyblock bingo data.",
+    "version": "1.0.0",
+    "title": "Bingo API",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "skyblock.bingo/api",
+  "tags": [
+    {
+      "name": "stats",
+      "description": "Gets a player's bingo stats"
+    },
+    {
+      "name": "leaderboard",
+      "description": "Get the top 100 bingo players"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/stats/{username/uuid}": {
+      "get": {
+        "tags": [
+          "stats"
+        ],
+        "operationId": "getStats",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username/uuid",
+            "in": "path",
+            "description": "Username or UUID",
+            "required": true,
+            "type": "string",
+            "format": "utf8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/leaderboard": {
+      "get": {
+        "tags": [
+          "leaderboard"
+        ],
+        "operationId": "getLeaderboard",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    }
+  }
+}

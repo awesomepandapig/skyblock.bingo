@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Skyblock.Bingo lets you view your Hypixel Skyblock bingo stats, leaderboard, and guide for this month's goals!">
+    <meta name="keywords" content="bingo, hypixel, skyblock, hypixel skyblock">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://skyblock.bingo/MinecraftColorCodes.min.3.7.js"></script>
+    <title>skyblock.bingo</title>
+</head>
+<style>
+    body {
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        margin: 0px;
+        background-color: #070F15;
+        color: #bebebe;
+    }
+    #header {
+        background-color: #000000;
+        display: flex;
+        text-align: left;
+        padding: 5px;
+        position: sticky;
+        top: 0px;
+        height: 24px;
+    }
+    #header a {
+        outline: none;
+        border-radius: 32px;
+        border: none;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: 8px;
+        line-height: 18px;
+        background-color: #383838;
+        text-decoration: none;
+        color: #ffffff;
+    }
+    #header a:hover {
+        background-color: #bebebe;
+        color: #070F15;
+    }
+    #card {
+        display: flex;
+        width: 400px;
+        height: 400px;
+        margin-top: 16px;
+        margin-left: 16px;
+        border-radius: 5px;
+        flex-direction: column;
+        background-color: #000000;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+    .goal {
+        width: 79px;
+        height: 79px;
+        border-right: 1px solid #383838;
+        border-bottom: 1px solid #383838;
+    }
+    .goal button {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+        font-size: 12px;
+    }
+    .goal button:active {
+        background-color: #00000050;
+    }
+    .container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+    #player-container {
+        margin-top: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        height: calc(400px - 16px);
+        width: 100%;
+        background-color: #383838;
+        border-radius: 5px;
+        padding-bottom: 16px;
+        display: flex;
+        flex-direction: row;
+    }
+    #player {
+        border-radius: 5px 0px 0px 5px;
+        min-width: 180px;
+        width: fit-content;
+        padding-top: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+        height: 100%;
+        background-color: #424242;
+    }
+    #player-content {
+        display: none;
+    }
+    #username {
+        margin-bottom: 48px;
+    }
+    #guide {
+        display: none;
+        width: 100%;
+        height: calc(100% - 16px);
+        color: white;
+        padding: 32px;
+        padding-top: 16px;
+        border-radius: 0px 5px 5px 0px;
+    }
+    #guide h3 {
+        font-size: 24px;
+    }
+    #guide a {
+        text-decoration: underline; 
+        color: #1e78e0;
+    }
+    #goals {
+        margin-top: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        height: auto;
+        min-height: 754px;
+        width: 100%;
+        background-color: #383838;
+        border-radius: 5px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+    }
+    #goals-content {
+        display: none;
+    }
+    #blackout-string {
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        font-weight: 700;
+        text-align: center;
+        color: white;
+        font-size: 36px;
+        padding-top: 182px;
+        width: 400px;
+    }
+    #disclaimer {
+        margin-left: 32px;
+    }
+    #attribution {
+        float: right; 
+        margin-right: 32px;
+    }
+    #instructions {
+        color: #bebebe;
+        padding: 16px;
+        border-radius: 5px;
+        background-color: #424242;
+        overflow-y: auto;
+        max-height: calc(300px - 78px);
+    }
+    @media only screen and (max-width: 600px) {
+        .container {
+            flex-direction: column-reverse;
+        }
+        #card {
+            width: calc(100% - 32px);
+            height: calc(100vw - 32px);
+            margin-bottom: 16px;
+        }
+        .goal {
+            width: -webkit-calc(100% / 5);
+            height: calc((100vw - 32px) / 5);
+        }
+        #player-container {
+            width: calc(100% - 32px);
+            height: calc(100vw - 32px);
+            margin-bottom: 16px;
+        }
+        #player {
+            width: calc(100% - 32px);
+            min-height: auto;
+            height: 100%;
+            border-radius: 5px;
+            padding-top: 16px;
+            padding-left: 16px;
+            padding-right: 16px;
+            background-color: #383838;
+            padding-bottom: 16px;
+        }
+        #player img {
+            width: 180px;
+            height: 180px;
+        }
+        #guide {
+            display: none;
+        }
+        #username {
+            margin-bottom: 0px;
+        }
+        #goals {
+            margin-top: 5px;
+            width: calc(100% - 64px);
+        }
+        #blackout-string {
+            width: 100%;
+            padding-top: calc(50% - 18px);
+        }
+        #footer {
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 16px;
+        }
+        #disclaimer {
+            margin-left: 0px;
+            text-align: center;
+        }
+        #attribution {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <div id="header">
+        <a style="margin-left: 0px; background-color: #000000; color: white; font-weight: 600;" href="https://skyblock.bingo">skyblock.bingo</a>
+        <a href="https://skyblock.bingo/guide" target="_blank">Guide</a>
+        <a href="https://skyblock.bingo/leaderboard" target="_blank">Leaderboard</a>
+        <a href="https://skyblock.bingo/api" target="_blank">API</a>
+    </div>
+    <div class="container">
+        <div id="card">
+            <div class="row">
+                <div id="goal0" class="goal" style="border-radius: 5px 0px 0px 0px;">
+                    <button class="card-btn" aria-label="Display Goal One" onclick="displayGoal(0)" style="border-radius: 5px 0px 0px 0px;"></button>
+                </div>
+                <div id="goal1" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Two" onclick="displayGoal(1)"></button>
+                </div>
+                <div id="goal2" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Three" onclick="displayGoal(2)"></button>
+                </div>
+                <div id="goal3" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Four" onclick="displayGoal(3)"></button>
+                </div>
+                <div id="goal4" class="goal" style="border-radius: 0px 5px 0px 0px; border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Five" onclick="displayGoal(4)" style="border-radius: 0px 5px 0px 0px;"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal5" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Six" onclick="displayGoal(5)"></button>
+                </div>
+                <div id="goal6" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Seven" onclick="displayGoal(6)"></button>
+                </div>
+                <div id="goal7" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Eight" onclick="displayGoal(7)"></button>
+                </div>
+                <div id="goal8" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Nine" onclick="displayGoal(8)"></button>
+                </div>
+                <div id="goal9" class="goal" style="border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Ten" onclick="displayGoal(9)"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal10" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Eleven" onclick="displayGoal(10)"></button>
+                </div>
+                <div id="goal11" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Twelve" onclick="displayGoal(11)"></button>
+                </div>
+                <div id="goal12" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Thirteen" onclick="displayGoal(12)"></button>
+                </div>
+                <div id="goal13" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Fourteen" onclick="displayGoal(13)"></button>
+                </div>
+                <div id="goal14" class="goal" style="border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Fifteen" onclick="displayGoal(14)"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal15" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Sixteen" onclick="displayGoal(15)"></button>
+                </div>
+                <div id="goal16" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Seventeen" onclick="displayGoal(16)"></button>
+                </div>
+                <div id="goal17" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Eighteen" onclick="displayGoal(17)"></button>
+                </div>
+                <div id="goal18" class="goal">
+                    <button class="card-btn" aria-label="Display Goal Ninteen" onclick="displayGoal(18)"></button>
+                </div>
+                <div id="goal19" class="goal" style="border-right: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twenty" onclick="displayGoal(19)"></button>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal20" class="goal" style="border-radius: 0px 0px 0px 5px; border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentyone" onclick="displayGoal(20)" style="border-radius: 0px 0px 0px 5px;"></button>
+                </div>
+                <div id="goal21" class="goal" style="border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentytwo" onclick="displayGoal(21)"></button>
+                </div>
+                <div id="goal22" class="goal" style="border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentythree" onclick="displayGoal(22)"></button>
+                </div>
+                <div id="goal23" class="goal" style="border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentyfour" onclick="displayGoal(23)"></button>
+                </div>
+                <div id="goal24" class="goal" style="border-radius: 0px 0px 5px 0px; border-right: 0px; border-bottom: 0px;">
+                    <button class="card-btn" aria-label="Display Goal Twentyfive" onclick="displayGoal(24)" style="border-radius: 0px 0px 5px 0px;"></button>
+                </div>
+            </div>
+        </div>
+
+        <div id="player-container">
+            <div id="player">
+                <div id="player-content">
+                    <img style="border-radius: 3px;" id='playerhead' src="" alt="Playerhead Image">
+                    <h3 id="username"></h3>
+                    <p><span style="font-weight: 700;">*Bingo Rank: </span><span id='rank' style="color: #bebebe;">none</span></p>
+                    <p><span style="font-weight: 700;">Points: </span><span id="points_display" style="color: #ECB22E;">0</span></p>
+                    <p><span style="font-weight: 700;">Completed: </span><span id="completed_goals" style="color:#55FF55;">0</span><span style="color: #ECB22E;">/20</span></p>
+                </div>
+            </div>
+            <div id="guide" style="padding-bottom: 16px;"></div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div id="goals">
+            <div id="goals-content">
+                <h3 style="color: #2EB67D; margin-bottom: 0px;">Tier 1</h3>
+                <div id="tier1"> </div>
+
+                <h3 style="color: #1ee0c0; margin-bottom: 0px;">Tier 2</h3>
+                <div id="tier2"></div>
+
+                <h3 style="color: #1e78e0; margin-bottom: 0px;">Tier 3</h3>
+                <div id="tier3"></div>
+
+                <h3 style="color: #d01ee0; margin-bottom: 0px;">Tier 4</h3>
+                <div id="tier4"></div>
+
+                <h3 style="color: #E01E5A; margin-bottom: 0px;">Tier 5</h3>
+                <div id="tier5"></div>
+
+                <h3 style="color: #ECB22E; margin-bottom: 0px;">Community</h3>
+                <div id="community"></div>
+            </div>
+        </div>
+    </div>
+
+    <p id="footer">
+        <span id="disclaimer">*Bingo rank is based on your active bingo pet</span><span id="attribution">Made by <a style="text-decoration: none; color: #1e78e0;" href="https://github.com/awesomepandapig/skyblock.bingo" target="_blank">awesomepandapig</a></span>
+    </p>
+</body>
+<script>
+    window.onload = function() {
+        let user =  window.location.href.split('/')[4];
+        // Gets the current active bingo goals
+        fetch(`https://api.hypixel.net/resources/skyblock/bingo`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            goals = data.goals;
+            var tier_one_goals = [];
+            var tier_two_goals = [];
+            var tier_three_goals = [];
+            var tier_four_goals = [];
+            var tier_five_goals = [];
+            var community_goals = [];
+            // Gets a user's stats for the current bingo event
+            fetch(`https://skyblock.bingo/api/stats/${user}`)
+            .then(response => response.json())
+            .then(userData => {
+                console.log(userData);
+                if(userData.success == false) { // If the user has no bingo data
+                    if(userData.cause == 'This user does not exist') {window.location.replace(`https://skyblock.bingo`);}
+                    if(userData.cause == 'No skyblock data could be found') {window.location.replace(`https://skyblock.bingo`);}
+                    // Sets the page title to include the user's username
+                    document.title = `${userData.username} | skyblock.bingo`;
+                    // Sets the username to the user's
+                    document.getElementById('username').innerHTML = userData.username;
+                    // Sets the favicon to the user's playerhead
+                    var link = document.querySelector("link[rel~='icon']");
+                    if (!link) {
+                        link = document.createElement('link');
+                        link.rel = 'icon';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    }
+                    link.href = `https://mc-heads.net/avatar/${userData.uuid}`;
+                    document.getElementById('playerhead').src = `https://mc-heads.net/avatar/${userData.uuid}`;
+                    for (i = 0; i < goals.length; i++) {
+                        document.getElementsByClassName('card-btn')[i].innerHTML = goals[i].name;
+                        if ((i == 1) || (i == 3) || (i == 14) || (i == 22)) {
+                            displayGoals('tier1', goals[i]);
+                            document.getElementById(`goal${i}`).style.backgroundColor = '#2EB67D';
+                        }
+                        if ((i == 5) || (i == 8) || (i == 11) || (i == 15) || (i == 17) || (i == 19)) {
+                            displayGoals('tier2', goals[i]);
+                            document.getElementById(`goal${i}`).style.backgroundColor = '#1ee0c0';
+                        }
+                        if ((i == 7) || (i == 9) || (i == 13) || (i == 20) || (i == 21)) {
+                            displayGoals('tier3', goals[i]);
+                            document.getElementById(`goal${i}`).style.backgroundColor = '#1e78e0';
+                        }
+                        if ((i == 2) || (i == 10) || (i == 16)) {
+                            displayGoals('tier4', goals[i]);
+                            document.getElementById(`goal${i}`).style.backgroundColor = '#d01ee0';
+                        }
+                        if ((i == 4) || (i == 23)) {
+                                displayGoals('tier5', goals[i]);
+                                document.getElementById(`goal${i}`).style.backgroundColor = '#E01E5A';
+                        }
+                        if ((i == 0) || (i == 6) || (i == 12) || (i == 18) || (i == 24)) {
+                            community_goals.push(goals[i]);
+                            document.getElementById(`goal${i}`).style.backgroundColor = '#ECB22E';
+                        }
+                    }
+                    for(j = 0; j < community_goals.length; j++) {
+                        document.getElementById('community').innerHTML += (`${community_goals[j].name} - `);
+                        for(k = 0; k < community_goals[j].tiers.length; k++) {
+                            if(community_goals[j].progress > community_goals[j].tiers[k]) {
+                                tempString = document.createElement('span');
+                                if (k == community_goals[j].tiers.length-1) {
+                                    tempString.innerHTML = community_goals[j].tiers[k];
+                                } else {
+                                    tempString.innerHTML = community_goals[j].tiers[k] + ', ';
+                                }
+                                tempString.style.color = '#55FF55'
+                                document.getElementById('community').append(tempString);
+                            } else {
+                                if (k == community_goals[j].tiers.length-1) {
+                                    tempString.innerHTML = community_goals[j].tiers[k];
+                                } else {
+                                    tempString.innerHTML = community_goals[j].tiers[k] + ', ';
+                                }
+                                tempString.style.color = '#bebebe'
+                                document.getElementById('community').append(tempString);
+                            }
+                        }
+                        document.getElementById('community').innerHTML += (`<br/>`);
+                    }
+                } else { // If the user has bingo data
+                    // Sets the page title to include the user's username
+                    document.title = `${userData.username} | skyblock.bingo`;
+                    // Sets the user's points
+                    document.getElementById('points_display').innerHTML = userData.total_points;
+                    document.getElementById('completed_goals').innerHTML = userData.completed_goals.length;
+                    // Sets the username to the user's
+                    document.getElementById('username').innerHTML = userData.username;
+                    if (userData.hypixel_rank == 'ADMIN' || userData.hypixel_rank == 'YOUTUBER') {
+                        document.getElementById('username').style.color = '#FF5555';
+                    } else if (userData.hypixel_rank == 'MODERATOR') {
+                        document.getElementById('username').style.color = '#00AA00';
+                    } else if (userData.hypixel_rank == 'HELPER') {
+                        document.getElementById('username').style.color = '#0000AA';
+                    } else if (userData.hypixel_rank == 'SUPERSTAR') {
+                        document.getElementById('username').style.color = '#FFAA00';
+                    } else if (userData.hypixel_rank == 'MVP_PLUS') {
+                        document.getElementById('username').style.color = '#55FFFF';
+                    } else if (userData.hypixel_rank == 'MVP') {
+                        document.getElementById('username').style.color = '#55FFFF';
+                    } else if (userData.hypixel_rank == 'VIP_PLUS') {
+                        document.getElementById('username').style.color = '#55FF55';
+                    } else if (userData.hypixel_rank == 'VIP') {
+                        document.getElementById('username').style.color = '#55FF55';
+                    }
+                    // Gets the user's bingo rank
+                    if(userData.bingo_rank == 1) {
+                        document.getElementById('rank').innerHTML = 'I';
+                        document.getElementById('rank').style.color = '#55FF55';
+                    }
+                    if(userData.bingo_rank == 2) {
+                        document.getElementById('rank').innerHTML = 'II';
+                        document.getElementById('rank').style.color = '#5555FF';
+                    }
+                    if(userData.bingo_rank == 3) {
+                        document.getElementById('rank').innerHTML = 'III';
+                        document.getElementById('rank').style.color = '#AA00AA';
+                    }
+                    // Sets the favicon to the user's playerhead
+                    var link = document.querySelector("link[rel~='icon']");
+                    if (!link) {
+                        link = document.createElement('link');
+                        link.rel = 'icon';
+                        document.getElementsByTagName('head')[0].appendChild(link);
+                    }
+                    link.href = `https://mc-heads.net/avatar/${userData.uuid}`;
+                    document.getElementById('playerhead').src = `https://mc-heads.net/avatar/${userData.uuid}`;
+                    // Blacks-out the card if a user has completed all bingo goals
+                    goalDisplayed = false;
+                    if (userData.completed_goals.length == 20) {
+                        for(n = 0; n < 25; n++) {
+                            document.getElementById(`goal${n}`).style.display = 'none';
+                        }
+                        blackoutString = document.createElement(`span`);
+                        blackoutString.id = 'blackout-string';
+                        blackoutString.innerHTML = 'BLACKOUT';
+                        document.getElementById(`card`).append(blackoutString);
+                        goalDisplayed = true;
+                        // Display a congratulatory message if a user has completed their card
+                        goal_name = document.createElement('h3');
+                        goal_name.id = 'goal-name';
+                        document.getElementById('guide').append(goal_name);
+                        document.getElementById('goal-name').style.fontSize = '20px';
+                        document.getElementById('goal-name').style.paddingTop = '142px';
+                        document.getElementById('goal-name').style.textAlign = 'center';
+                        document.getElementById('goal-name').innerHTML = 'You have completed all of your bingo goals<br>Come back next month for a new bingo challenge!';
+                    }
+                    for (i = 0; i < goals.length; i++) {
+                        //document.getElementsByClassName('card-btn')[i].innerHTML = goals[i].name;
+                        completed = false;
+                        for(l = 0; l < userData.completed_goals.length; l++) {
+                            if(goals[i].id == userData.completed_goals[l]) {
+                                completed = true;
+                            }
+                        }
+                        if(!completed && !goalDisplayed) {
+                            displayGoal(i); 
+                            goalDisplayed = true;
+                        }
+                        if ((i == 1) || (i == 3) || (i == 14) || (i == 22)) {
+                            if(completed) {
+                                strikeThroughGoals('tier1', goals[i]);
+                                document.getElementById(`goal${i}`).innerHTML = '';
+                                document.getElementById(`goal${i}`).style.backgroundColor = 'black';
+                            } else {
+                                displayGoals('tier1', goals[i]);
+                                document.getElementById(`goal${i}`).style.backgroundColor = '#2EB67D';
+                            }
+                        }
+                        if ((i == 5) || (i == 8) || (i == 11) || (i == 15) || (i == 17) || (i == 19)) {
+                            if(completed) {
+                                strikeThroughGoals('tier2', goals[i]);
+                                document.getElementById(`goal${i}`).innerHTML = '';
+                                document.getElementById(`goal${i}`).style.backgroundColor = 'black';
+                            } else {
+                                displayGoals('tier2', goals[i]);
+                                document.getElementById(`goal${i}`).style.backgroundColor = '#1ee0c0';
+                            }
+                        }
+                        if ((i == 7) || (i == 9) || (i == 13) || (i == 20) || (i == 21)) {
+                            if(completed) {
+                                strikeThroughGoals('tier3', goals[i]);
+                                document.getElementById(`goal${i}`).innerHTML = '';
+                                document.getElementById(`goal${i}`).style.backgroundColor = 'black';
+                            } else {
+                                displayGoals('tier3', goals[i]);
+                                document.getElementById(`goal${i}`).style.backgroundColor = '#1e78e0';
+                            }
+                        }
+                        if ((i == 2) || (i == 10) || (i == 16)) {
+                            if(completed) {
+                                strikeThroughGoals('tier4', goals[i]);
+                                document.getElementById(`goal${i}`).innerHTML = '';
+                                document.getElementById(`goal${i}`).style.backgroundColor = 'black';
+                            } else {
+                                displayGoals('tier4', goals[i]);
+                                document.getElementById(`goal${i}`).style.backgroundColor = '#d01ee0';
+                            }
+                        }
+                        if ((i == 4) || (i == 23)) {
+                            if(completed) {
+                                strikeThroughGoals('tier5', goals[i]);
+                                document.getElementById(`goal${i}`).innerHTML = '';
+                                document.getElementById(`goal${i}`).style.backgroundColor = 'black';
+                            } else {
+                                displayGoals('tier5', goals[i]);
+                                document.getElementById(`goal${i}`).style.backgroundColor = '#E01E5A';
+                            }
+                        }
+                        if ((i == 0) || (i == 6) || (i == 12) || (i == 18) || (i == 24)) {
+                            community_goals.push(goals[i]);
+                            document.getElementById(`goal${i}`).style.backgroundColor = '#ECB22E';
+                        }
+                    }
+                    for(j = 0; j < community_goals.length; j++) {
+                        document.getElementById('community').innerHTML += (`${community_goals[j].name} - `);
+                        for(k = 0; k < community_goals[j].tiers.length; k++) {
+                            if(community_goals[j].progress > community_goals[j].tiers[k]) {
+                                tempString = document.createElement('span');
+                                if (k == community_goals[j].tiers.length-1) {
+                                    tempString.innerHTML = community_goals[j].tiers[k];
+                                } else {
+                                    tempString.innerHTML = community_goals[j].tiers[k] + ', ';
+                                }
+                                tempString.style.color = '#55FF55'
+                                document.getElementById('community').append(tempString);
+                            } else {
+                                tempString = document.createElement('span');
+                                if (k == community_goals[j].tiers.length-1) {
+                                    tempString.innerHTML = community_goals[j].tiers[k];
+                                } else {
+                                    tempString.innerHTML = community_goals[j].tiers[k] + ', ';
+                                }
+                                tempString.style.color = '#bebebe'
+                                document.getElementById('community').append(tempString);
+                            }
+                        }
+                        document.getElementById('community').innerHTML += (`<br/>`);
+                    }
+                    document.getElementById('goals-content').style.display = 'block';
+                    document.getElementById('player-content').style.display = 'block';
+                    if(screen.width > 848) {
+                        document.getElementById('guide').style.display = 'block';       
+                    }
+                }
+            })
+        })
+        .catch(error => {
+            document.body.innerHTML = JSON.stringify({success: false, cause: 'The Hypixel API is currently unavailable.'});
+            document.body.style.padding = '16px';
+        });
+    }
+
+    function displayGoals(str, arr)  {
+        var colorfulString = arr.lore.substring(0, arr.lore.length-1).replaceColorCodes();
+        document.getElementById(str).append(colorfulString);
+        document.getElementById(str).innerHTML += '<br/>';
+    }
+
+    function strikeThroughGoals(str, arr)  {
+        var colorfulString = arr.lore.substring(0, arr.lore.length-1).replaceColorCodes();
+        var tempSpan = document.createElement('span');
+        tempSpan.append(colorfulString);
+        tempSpan.innerHTML = `<del>${tempSpan.innerHTML}<del/><br/>`;
+        document.getElementById(str).append(tempSpan);
+    }
+
+    guide = [];
+    fetch(`https://skyblock.bingo/guide.json`)
+    .then(response => response.json())
+    .then(data => {
+        guide = data;
+    })
+
+    //TODO: Change this when new bingo goals come out
+    let community_goals_lore = {"0":"§7Gain §51M Heart of the Mountain experience.","6":"§7Loot §e50k §7drops with a chance of §e1% §7or lower§7.","12":"§7Defeat §cBonzo §a1,000 §7times§7.","18":"§7Kill §a2,000 Tarantula Broodfather §7of tier 2 or higher§7.","24":"§7Gain §b150M Taming §7experience§7."};
+
+    function displayGoal(num) {
+        document.getElementById('guide').innerHTML = '';
+        
+        goal_name = document.createElement('h3')
+        goal_name.id = 'goal-name';
+        document.getElementById('guide').append(goal_name);
+
+        if ((num == 1) || (num == 3) || (num == 14) || (num == 22)) {
+            document.getElementById('goal-name').style.color = '#2EB67D'; // Tier 1
+        } else if ((num == 5) || (num == 8) || (num == 11) || (num == 15) || (num == 17) || (num == 19)) {
+            document.getElementById('goal-name').style.color = '#1ee0c0'; // Tier 2
+        } else if ((num == 7) || (num == 9) || (num == 13) || (num == 20) || (num == 21)) {
+            document.getElementById('goal-name').style.color = '#1e78e0'; // Tier 3
+        } else if ((num == 2) || (num == 10) || (num == 16)) {
+            document.getElementById('goal-name').style.color = '#d01ee0'; // Tier 4
+        } else if ((num == 4) || (num == 23)) {
+            document.getElementById('goal-name').style.color = '#E01E5A'; // Tier 5
+        } else {
+            document.getElementById('goal-name').style.color = '#ECB22E'; // Community
+        }
+        document.getElementById('goal-name').innerHTML = goals[num].name;
+        if (goals[num].lore != undefined) {
+            var colorfulString = goals[num].lore.substring(0, goals[num].lore.length-1).replaceColorCodes();
+            
+        } else {
+            var colorfulString = community_goals_lore[num].substring(0, community_goals_lore[num].length-1).replaceColorCodes();
+        }
+        var lore = document.createElement('p');
+        lore.append(colorfulString);
+        document.getElementById('guide').append(lore);
+
+        if(guide[num].method.length != 0) {
+            instructions = document.createElement('p');
+            instructions.id = 'instructions';
+            if (!(guide[num].notes == "None")) {
+                instructions.innerHTML = `${guide[num].method}<br><br>${guide[num].notes}`;
+            } else {
+                instructions.innerHTML = `${guide[num].method}`;
+            }
+            document.getElementById('guide').append(instructions);
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Skyblock.Bingo lets you view your Hypixel Skyblock bingo stats, leaderboard, and guide for this month's goals!">
+    <meta name="keywords" content="bingo, hypixel, skyblock, hypixel skyblock">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://skyblock.bingo/MinecraftColorCodes.min.3.7.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <title>skyblock.bingo</title>
+</head>
+<style>
+    body {
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        margin: 0px;
+        background-color: #070F15;
+        color: #bebebe;
+    }
+    #header {
+        background-color: #000000;
+        display: flex;
+        text-align: left;
+        padding: 5px;
+        position: sticky;
+        top: 0px;
+        height: 24px;
+    }
+    #header a {
+        outline: none;
+        border-radius: 32px;
+        border: none;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: 8px;
+        line-height: 18px;
+        background-color: #383838;
+        text-decoration: none;
+        color: #ffffff;
+    }
+    #header a:hover {
+        background-color: #bebebe;
+        color: #070F15;
+    }
+    #card {
+        display: flex;
+        width: 400px;
+        height: 400px;
+        margin-top: 16px;
+        margin-left: 16px;
+        border-radius: 5px;
+        flex-direction: column;
+        background-color: #000000;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+    .goal {
+        width: 79px;
+        height: 79px;
+        border-right: 1px solid #383838;
+        border-bottom: 1px solid #383838;
+    }
+    .goal div {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        color: rgb(0, 0, 0);
+    }
+    .container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+    #player-container {
+        margin-top: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        height: calc(400px - 16px);
+        width: 100%;
+        background-color: #383838;
+        border-radius: 5px;
+        padding-bottom: 16px;
+        display: flex;
+        flex-direction: row;
+    }
+    #player {
+        width: 100%;
+        border-radius: 5px;
+        padding-top: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+        height: 100%;
+        background-color: #424242;
+        text-align: center;
+    }
+    #player form {
+        padding-top: 121px;
+    }
+    #player h1 {
+        color: white;
+        margin-top: 0px;
+        margin-bottom: 16px;
+    }
+    #player input {
+        text-align: center;
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        margin-bottom: 16px;
+        border-radius: 5px 0px 0px 5px;
+        border: none;
+        padding: 10px;
+        background-color: #000000;
+        color: white;
+        font-size: 24px;
+        outline: none;
+        width: calc(100% - 67px);
+    }
+    #player button {
+        margin-left: -5px;
+        text-align: center;
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        margin-bottom: 16px;
+        border-radius: 0px 5px 5px 0px;
+        border: none;
+        padding: 10px;
+        padding-right: 16px;
+        padding-left: 9px;
+        background-color: #000000;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    #username {
+        margin-bottom: 48px;
+    }
+    #goals {
+        margin-top: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        height: auto;
+        min-height: 754px;
+        width: 100%;
+        background-color: #383838;
+        border-radius: 5px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+    }
+    #blackout-string {
+        font-family: 'Atkinson Hyperlegible', sans-serif;
+        font-weight: 700;
+        text-align: center;
+        color: white;
+        font-size: 36px;
+        padding-top: 182px;
+        width: 400px;
+    }
+    #disclaimer {
+        margin-left: 32px;
+    }
+    #attribution {
+        float: right; 
+        margin-right: 32px;
+    }
+    @media only screen and (max-width: 848px) {
+        .container {
+            flex-direction: column-reverse;
+        }
+        #player-container {
+            width: calc(100% - 32px);
+            height: fit-content;
+            margin-bottom: 16px;
+        }
+        #player {
+            border-radius: 5px;
+            padding-left: 16px;
+            padding-right: 16px;
+            background-color: #383838;
+        }
+        #player form {
+            padding-top: 16px;
+        }
+        #player form input {
+            font-size: 16px;
+        }
+        #player form button {
+            font-size: 16px;
+        }
+        #player form h1 {
+            font-size: 24px;
+        }
+        #player input {
+            width: calc(100% - 80px);
+        }
+        #card {
+            margin-top: 0px;
+            width: calc(100% - 32px);
+            height: calc(100vw - 32px);
+            margin-bottom: 16px;
+        }
+        .goal {
+            width: calc(100% / 5);
+            height: calc((100vw - 32px) / 5);
+        }
+        #username {
+            margin-bottom: 0px;
+        }
+        #goals {
+            margin-top: 5px;
+            width: calc(100% - 64px);
+            min-height: 754px;
+        }
+        #blackout-string {
+            width: 100%;
+            padding-top: calc(50% - 18px);
+        }
+        #footer {
+            text-align: center;
+            margin-top: 0px;
+            margin-bottom: 16px;
+        }
+        #disclaimer {
+            margin-left: 0px;
+            text-align: center;
+        }
+        #attribution {
+            display: none;
+        }
+    }
+</style>
+<body>
+    <div id="header">
+        <a style="margin-left: 0px; background-color: #000000; color: white; font-weight: 600;" href="https://skyblock.bingo">skyblock.bingo</a>
+        <a href="https://skyblock.bingo/guide" target="_blank">Guide</a>
+        <a href="https://skyblock.bingo/leaderboard" target="_blank">Leaderboard</a>
+        <a href="https://skyblock.bingo/api" target="_blank">API</a>
+    </div>
+    <div class="container">
+        <div id="card">
+            <div class="row">
+                <div id="goal0" class="goal" style="border-radius: 5px 0px 0px 0px;">
+                    <div aria-label="Display Goal One" onclick="displayGoal(0)" style="border-radius: 5px 0px 0px 0px;"></div>
+                </div>
+                <div id="goal1" class="goal">
+                    <div aria-label="Display Goal Two" onclick="displayGoal(1)"></div>
+                </div>
+                <div id="goal2" class="goal">
+                    <div aria-label="Display Goal Three" onclick="displayGoal(2)"></div>
+                </div>
+                <div id="goal3" class="goal">
+                    <div aria-label="Display Goal Four" onclick="displayGoal(3)"></div>
+                </div>
+                <div id="goal4" class="goal" style="border-radius: 0px 5px 0px 0px; border-right: 0px;">
+                    <div aria-label="Display Goal Five" onclick="displayGoal(4)" style="border-radius: 0px 5px 0px 0px;"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal5" class="goal">
+                    <div aria-label="Display Goal Six" onclick="displayGoal(5)"></div>
+                </div>
+                <div id="goal6" class="goal">
+                    <div aria-label="Display Goal Seven" onclick="displayGoal(6)"></div>
+                </div>
+                <div id="goal7" class="goal">
+                    <div aria-label="Display Goal Eight" onclick="displayGoal(7)"></div>
+                </div>
+                <div id="goal8" class="goal">
+                    <div aria-label="Display Goal Nine" onclick="displayGoal(8)"></div>
+                </div>
+                <div id="goal9" class="goal" style="border-right: 0px;">
+                    <div aria-label="Display Goal Ten" onclick="displayGoal(9)"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal10" class="goal">
+                    <div aria-label="Display Goal Eleven" onclick="displayGoal(10)"></div>
+                </div>
+                <div id="goal11" class="goal">
+                    <div aria-label="Display Goal Twelve" onclick="displayGoal(11)"></div>
+                </div>
+                <div id="goal12" class="goal">
+                    <div aria-label="Display Goal Thirteen" onclick="displayGoal(12)"></div>
+                </div>
+                <div id="goal13" class="goal">
+                    <div aria-label="Display Goal Fourteen" onclick="displayGoal(13)"></div>
+                </div>
+                <div id="goal14" class="goal" style="border-right: 0px;">
+                    <div aria-label="Display Goal Fifteen" onclick="displayGoal(14)"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal15" class="goal">
+                    <div aria-label="Display Goal Sixteen" onclick="displayGoal(15)"></div>
+                </div>
+                <div id="goal16" class="goal">
+                    <div aria-label="Display Goal Seventeen" onclick="displayGoal(16)"></div>
+                </div>
+                <div id="goal17" class="goal">
+                    <div aria-label="Display Goal Eighteen" onclick="displayGoal(17)"></div>
+                </div>
+                <div id="goal18" class="goal">
+                    <div aria-label="Display Goal Ninteen" onclick="displayGoal(18)"></div>
+                </div>
+                <div id="goal19" class="goal" style="border-right: 0px;">
+                    <div aria-label="Display Goal Twenty" onclick="displayGoal(19)"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="goal20" class="goal" style="border-radius: 0px 0px 0px 5px; border-bottom: 0px;">
+                    <div aria-label="Display Goal Twentyone" onclick="displayGoal(20)" style="border-radius: 0px 0px 0px 5px;"></div>
+                </div>
+                <div id="goal21" class="goal" style="border-bottom: 0px;">
+                    <div aria-label="Display Goal Twentytwo" onclick="displayGoal(21)"></div>
+                </div>
+                <div id="goal22" class="goal" style="border-bottom: 0px;">
+                    <div aria-label="Display Goal Twentythree" onclick="displayGoal(22)"></div>
+                </div>
+                <div id="goal23" class="goal" style="border-bottom: 0px;">
+                    <div aria-label="Display Goal Twentyfour" onclick="displayGoal(23)"></div>
+                </div>
+                <div id="goal24" class="goal" style="border-radius: 0px 0px 5px 0px; border-right: 0px; border-bottom: 0px;">
+                    <div aria-label="Display Goal Twentyfive" onclick="displayGoal(24)" style="border-radius: 0px 0px 5px 0px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="player-container">
+            <div id="player">
+                <form action="javascript:getUser();" autocomplete="off">
+                    <h1>Show Bingo Stats For:</h1>
+                    <input id='user-input' placeholder="Enter username/uuid" autocomplete="off">
+                    <button aria-label="Get User" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="goals">
+            <div id="goals-content">
+                <h3 style="color: #2EB67D; margin-bottom: 0px;">Tier 1</h3>
+                <div id="tier1"> </div>
+
+                <h3 style="color: #1ee0c0; margin-bottom: 0px;">Tier 2</h3>
+                <div id="tier2"></div>
+
+                <h3 style="color: #1e78e0; margin-bottom: 0px;">Tier 3</h3>
+                <div id="tier3"></div>
+
+                <h3 style="color: #d01ee0; margin-bottom: 0px;">Tier 4</h3>
+                <div id="tier4"></div>
+
+                <h3 style="color: #E01E5A; margin-bottom: 0px;">Tier 5</h3>
+                <div id="tier5"></div>
+
+                <h3 style="color: #ECB22E; margin-bottom: 0px;">Community</h3>
+                <div id="community"></div>
+            </div>
+        </div>
+    </div>
+
+    <p id="footer">
+        <span id="disclaimer">*Bingo rank is based on your active bingo pet</span><span id="attribution">Made by <a style="text-decoration: none; color: #1e78e0;" href="https://github.com/awesomepandapig/skyblock.bingo" target="_blank">awesomepandapig</a></span>
+    </p>
+</body>
+<script>
+    window.onload = function() {
+        let user =  window.location.href.split('/')[4];
+        // Gets the current active bingo goals
+        fetch(`https://api.hypixel.net/resources/skyblock/bingo`)
+        .then(response => response.json())
+        .then(data => {
+            goals = data.goals;
+            var tier_one_goals = [];
+            var tier_two_goals = [];
+            var tier_three_goals = [];
+            var tier_four_goals = [];
+            var tier_five_goals = [];
+            var community_goals = [];
+            for (i = 0; i < goals.length; i++) {
+                if ((i == 1) || (i == 3) || (i == 14) || (i == 22)) {
+                        displayGoals('tier1', goals[i]);
+                        document.getElementById(`goal${i}`).style.backgroundColor = '#2EB67D';
+                }
+                if ((i == 5) || (i == 8) || (i == 11) || (i == 15) || (i == 17) || (i == 19)) {
+                        displayGoals('tier2', goals[i]);
+                        document.getElementById(`goal${i}`).style.backgroundColor = '#1ee0c0';
+                }
+                if ((i == 7) || (i == 9) || (i == 13) || (i == 20) || (i == 21)) {
+                        displayGoals('tier3', goals[i]);
+                        document.getElementById(`goal${i}`).style.backgroundColor = '#1e78e0';
+                }
+                if ((i == 2) || (i == 10) || (i == 16)) {
+                        displayGoals('tier4', goals[i]);
+                        document.getElementById(`goal${i}`).style.backgroundColor = '#d01ee0';
+                }
+                if ((i == 4) || (i == 23)) {
+                        displayGoals('tier5', goals[i]);
+                        document.getElementById(`goal${i}`).style.backgroundColor = '#E01E5A';
+                }
+                if ((i == 0) || (i == 6) || (i == 12) || (i == 18) || (i == 24)) {
+                    community_goals.push(goals[i]);
+                    document.getElementById(`goal${i}`).style.backgroundColor = '#ECB22E';
+                }
+            }
+            for(j = 0; j < community_goals.length; j++) {
+                document.getElementById('community').innerHTML += (`${community_goals[j].name} - `);
+                for(k = 0; k < community_goals[j].tiers.length; k++) {
+                    if(community_goals[j].progress > community_goals[j].tiers[k]) {
+                        tempString = document.createElement('span');
+                        if (k == community_goals[j].tiers.length-1) {
+                            tempString.innerHTML = community_goals[j].tiers[k];
+                        } else {
+                            tempString.innerHTML = community_goals[j].tiers[k] + ', ';
+                        }
+                        tempString.style.color = '#55FF55'
+                        document.getElementById('community').append(tempString);
+                    } else {
+                        tempString = document.createElement('span');
+                        if (k == community_goals[j].tiers.length-1) {
+                            tempString.innerHTML = community_goals[j].tiers[k];
+                        } else {
+                            tempString.innerHTML = community_goals[j].tiers[k] + ', ';
+                        }
+                        tempString.style.color = '#bebebe'
+                        document.getElementById('community').append(tempString);
+                    }
+                }
+                document.getElementById('community').innerHTML += (`<br/>`);
+            }
+        })
+        .catch(error => {
+            document.body.innerHTML = JSON.stringify({success: false, cause: 'The Hypixel API is currently unavailable.'});
+            document.body.style.padding = '16px';
+        });
+    }
+
+    function displayGoals(str, arr)  {
+        var colorfulString = arr.lore.substring(0, arr.lore.length-1).replaceColorCodes();
+        document.getElementById(str).append(colorfulString);
+        document.getElementById(str).innerHTML += '<br/>';
+    }
+
+    function getUser() {
+        window.location.href = (`http://skyblock.bingo/stats/${document.getElementById('user-input').value}`);
+    }
+</script>
+</html>
