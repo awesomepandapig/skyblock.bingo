@@ -651,9 +651,6 @@
         guide = data;
     })
 
-    //TODO: Change this when new bingo goals come out
-    let community_goals_lore = {"0":"§7Gain §51M Heart of the Mountain experience.","6":"§7Loot §e50k §7drops with a chance of §e1% §7or lower§7.","12":"§7Defeat §cBonzo §a1,000 §7times§7.","18":"§7Kill §a2,000 Tarantula Broodfather §7of tier 2 or higher§7.","24":"§7Gain §b150M Taming §7experience§7."};
-
     function displayGoal(num) {
         document.getElementById('guide').innerHTML = '';
         
@@ -675,12 +672,7 @@
             document.getElementById('goal-name').style.color = '#ECB22E'; // Community
         }
         document.getElementById('goal-name').innerHTML = goals[num].name;
-        if (goals[num].lore != undefined) {
-            var colorfulString = goals[num].lore.substring(0, goals[num].lore.length-1).replaceColorCodes();
-            
-        } else {
-            var colorfulString = community_goals_lore[num].substring(0, community_goals_lore[num].length-1).replaceColorCodes();
-        }
+        var colorfulString = (goals[num].lore || guide[num].lore).slice(0, -1).replaceColorCodes();
         var lore = document.createElement('p');
         lore.append(colorfulString);
         document.getElementById('guide').append(lore);
