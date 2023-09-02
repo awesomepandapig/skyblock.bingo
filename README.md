@@ -129,16 +129,7 @@
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
 See the [open issues](https://github.com/awesomepandapig/skyblock.bingo/issues) for a full list of proposed features (and known issues).
-
-
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
