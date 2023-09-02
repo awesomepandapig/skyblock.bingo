@@ -190,7 +190,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-shield]: https://img.shields.io/github/issues/awesomepandapig/skyblock.bingo.svg?style=for-the-badge
 [issues-url]: https://github.com/awesomepandapig/skyblock.bingo/issues
 [license-shield]: https://img.shields.io/github/license/awesomepandapig/skyblock.bingo.svg?style=for-the-badge
-[license-url]: https://github.com/awesomepandapig/skyblock.bingo/blob/master/LICENSE.txt
+[license-url]: https://github.com/awesomepandapig/skyblock.bingo/blob/main/LICENSE
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
