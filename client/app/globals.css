@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background-color: #070F15;
+  --tier-one: #2EB67D;
+  --tier-two: #1ee0c0;
+  --tier-three: #1e78e0;
+  --tier-four: #d01ee0;
+  --tier-five: #E01E5A;
+  --community: #ECB22E;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 190, 190, 190;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: var(--background-color);
+  margin: 0px;
+}
+
+/* Define classes for Minecraft colors */
+.mc-color-0 {
+  color: #000000; /* Black */
+}
+.mc-color-1 {
+  color: #0000aa; /* Dark Blue */
+}
+.mc-color-2 {
+  color: #00aa00; /* Dark Green */
+}
+.mc-color-3 {
+  color: #00aaaa; /* Dark Aqua */
+}
+.mc-color-4 {
+  color: #aa0000; /* Dark Red */
+}
+.mc-color-5 {
+  color: #aa00aa; /* Dark Purple */
+}
+.mc-color-6 {
+  color: #ffaa00; /* Gold */
+}
+.mc-color-7 {
+  color: rgb(203 213 225); /* Gray */
+}
+.mc-color-8 {
+  color: #555555; /* Dark Gray */
+}
+.mc-color-9 {
+  color: deepskyblue; /* Blue */
+}
+.mc-color-a {
+  color: #55ff55; /* Green */
+}
+.mc-color-b {
+  color: #55ffff; /* Aqua */
+}
+.mc-color-c {
+  color: #ff5555; /* Red */
+}
+.mc-color-d {
+  color: #ff55ff; /* Light Purple */
+}
+.mc-color-e {
+  color: #ffff55; /* Yellow */
+}
+.mc-color-f {
+  color: #ffffff; /* White */
+}
+/* Other formatting classes */
+.mc-color-k {
+  /* Obfuscated (Random) Text */
+}
+.mc-color-l {
+  font-weight: bold;
+}
+.mc-color-m {
+  /* Strikethrough Text */
+}
+.mc-color-n {
+  text-decoration: underline;
+}
+.mc-color-o {
+  font-style: italic;
+}
+.mc-color-r {
+  /* Reset Formatting */
+}
